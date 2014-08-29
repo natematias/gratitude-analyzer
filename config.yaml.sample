@@ -1,0 +1,5 @@
+---
+# load a brill tagger trained by nltk-trainer
+# https://github.com/japerk/nltk-trainer
+# SPECIFY THE TAGGER FOLDER HERE
+tagger_folder: ~/nltk_data/taggers/
