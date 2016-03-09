@@ -14,7 +14,8 @@ class Thank:
 
     self.line = line
     self.tokens = nltk.word_tokenize(line)
-    self.trigrams = nltk.trigrams(self.tokens)
+    self.length = len(self.tokens)
+    #self.trigrams = nltk.trigrams(self.tokens)
     # load a brill tagger trained by nltk-trainer
     # https://github.com/japerk/nltk-trainer
     tagger = pickle.load(open(os.path.join(CONFIG["tagger_folder"],"treebank_brill_aubt.pickle"), "rb"))
@@ -45,8 +46,11 @@ class Thank:
 class Thanks:
   def __init__(self,lines):
     self.thanks = []
+    self.sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
     for line in lines.split("\n"):
       self.thanks.append(Thank(line))
+      self.thanks[-1].sentences = self.sent_detector.tokenize(line)
+      self.thanks[-1].num_sentences = len(self.thanks[-1].sentences)
     self.superset = self.thanks
 
   def pos_frequency(self, pos):
